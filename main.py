@@ -194,11 +194,10 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,loginTy
         for line in summaryfile:
             for part in line.split():
                 if str(serviceNumNew) in part: #If the serviceNUM is found in the file
-                    flag=1+flag 
+                    flag=1+flag
 
     if (flag <= 1):
         print("Invalid service numbers. Both must be existing service numbers.")
-
 
     #Parse and change the ticket
     changedResult=[]
