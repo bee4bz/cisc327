@@ -117,6 +117,15 @@ def createservice(serviceNum,date,serviceName, validServices):
         print("Illegal service name. Must be between 3 and 39 characters")
         return false
 
+
+    _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
+    fileName= os.path.join(_location_,validServices)
+    bufferLine=[]
+    bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" "+date
+    print (bufferLine)
+    with open(fileName, 'a') as file:
+         file.write("CRE "+str(bufferLine)+"\n")
+
     #PASSED ALL TESTS, STORE IN TRANS SUMMARY FILE + add to tempservices
 
 def deleteservice(serviceNum, serviceName, validServices):
@@ -134,9 +143,16 @@ def deleteservice(serviceNum, serviceName, validServices):
         print("Service with that service number does not exist.")
         return false
 
+    _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
+    fileName= os.path.join(_location_,validServices)
+    bufferLine=[]
+    bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" 00000000"
+    print (bufferLine)
+    with open(fileName, 'a') as file:
+         file.write("DEL "+str(bufferLine)+"\n")
     #store in trans summary file and remove from validservices
 
-def sellticket(serviceNum, numTickets, validServices):    
+def sellticket(serviceNum, numTickets, validTransactionFile):    
     if (not serviceNum in validServices):
         print("Service with that service number does not exist.")
         return false
@@ -158,6 +174,24 @@ def sellticket(serviceNum, numTickets, validServices):
         return false
     
     #subtract ticket number from total ticket count, store in trans summary file
+
+    flag=0
+    _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
+    fileName= os.path.join(_location_,validTransactionFile)
+
+    #open transactionSummaryFile
+    with open(fileName) as summaryfile:
+        for line in summaryfile:
+            for part in line.split():
+                if str(serviceNum) in part: #If the serviceNUM is found in the file
+                    flag=1+flag 
+                    updatedLine=line #store the old line in UpdatedLine
+    if flag==1:
+        bufferLine=[]
+        bufferLine= str(serviceNum) +" "+ numTickets+" "+changedResult [3] +" "+ changedResult [4]+" "+changedResult [5]
+        print (bufferLine)
+        with open(fileName, 'a') as file:
+            file.write("SEL "+str(bufferLine)+"\n")
 
 #Function that adds the zeros on to a line item
 def zeroRemaster(incoming):
