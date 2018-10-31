@@ -70,11 +70,11 @@ def main():
 
             if (result[0] == "changeticket"):
                 print("Changing ticket...")
-                changeticket(result[1], result[2], result[3], validServices)
+                changeticket(result[1], result[2], result[3], validServiceListFile)
 
             if (result[0] == "cancelticket"):
                 print("Cancelling ticket...")
-                cancelticket(result[1], result[2],validServices, loginType)
+                cancelticket(result[1], result[2],validServiceListFile, loginType)
             
 def createservice(serviceNum,date,serviceName, validServices):
     try:
