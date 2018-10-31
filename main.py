@@ -1,6 +1,8 @@
-import sys
+import sys,os
 
 def main(validServiceListFile):
+
+    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
     while True:
         #files = sys.argv[1:]
@@ -22,7 +24,7 @@ def main(validServiceListFile):
         validServices = []
 
         #opens the service list file and copies each line to "line"
-        with open(validServiceListFile) as serviceListFile:
+        with open(os.path.join(__location__,validServiceListFile)) as serviceListFile:
             for line in serviceListFile:
                 line = line.rstrip()
                 validServices.append(line)
@@ -54,70 +56,6 @@ def main(validServiceListFile):
             if (result[0] == "deleteservice" and loginType == "agent"):
                 print("Must be a planner to delete a service.")
 
-<<<<<<< HEAD
-def changeticket(serviceNum,serviceNumNew,ticketNum):
-    #Flag to determine if the Service Number is Found. One if YES
-    flag =0
-    fileName="transactionSummaryFile.txt"
-    #open transactionSummaryFile
-    with open(fileName) as summaryfile:
-    for line in summaryfile:
-        for part in line.split():
-            if str(serviceNum) in part: #If the serviceNUM is found in the file
-                flag=1 
-                updatedLine=line #store the old line in UpdatedLine
-
-    #Parse and change the ticket
-    changedResult=[]
-    changedResult = updatedLine.split(" ")
-    #if the flag was raised
-    if (flag ==1):
-    #Remove the line
-    with open(fileName,"r+") as f:
-        new_f = f.readlines()
-        f.seek(0)
-        for line in new_f:
-            if str(serviceNum) not in line:
-                f.write(line)
-        f.truncate()
-
-    #Write the new lines. 
-    bufferLine=[]
-    if (int(changedResult[2]) > ticketNum):
-        bufferLine[0]= str(serviceNumNew) + changedResult [1] + str((int(changedResult[2])-ticketNum)) + changedResult [3] + changedResult [4]
-        bufferLine[1]= str(serviceNumNew) + changedResult [1] + str(ticketNum) + changedResult [3] + changedResult [4]
-    else
-        bufferLine[0]= str(serviceNumNew) + changedResult [1] + str(ticketNum) + changedResult [3] + changedResult [4]
-
-
-
-
-
-def cancelticket(serviceNum,ticketNum):
-
-#Flag to determine if the Service Number + ticket num is Found. One if YES
-    flag =0
-    fileName="transactionSummaryFile.txt"
-    #open transactionSummaryFile
-    with open(fileName) as summaryfile:
-    for line in summaryfile:
-        for part in line.split():
-            if str(serviceNum) in part: #If the serviceNUM is found in the file
-                if str(ticketNum) in part: #If the serviceNUM is found in the file
-                    flag=1 
-                    updatedLine=line #store the old line in UpdatedLine
-
-    #if the flag was raised
-    if (flag ==1):
-    #Remove the line
-    with open(fileName,"r+") as f:
-        new_f = f.readlines()
-        f.seek(0)
-        for line in new_f:
-            if updatedLine not in line:
-                f.write(line)
-        f.truncate()
-=======
             if (result[0] == "deleteservice" and loginType == "planner"):
                 print("Deleting service...")
                 deleteservice(result[1],result[2], validServices)
@@ -150,7 +88,6 @@ def createservice(serviceNum,date,serviceName, validServices):
     if (len(date) != 8):
         print("Illegal date.")
         return false
->>>>>>> d215337f468fb14305b89876ec90d2d52ab21527
     
     year = int(date[0:4])
     month = int(date[4:6])
@@ -224,7 +161,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum):
     #if the flag was raised
     if (flag ==1):
         #Remove the line
-        with open(fileName,"r+") as f:
+        with open(fileName,'r+') as f:
             new_f = f.readlines()
             f.seek(0)
             for line in new_f:
