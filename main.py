@@ -82,12 +82,13 @@ def main():
 def createservice(serviceNum,date,serviceName, validServices):
     try:
         serviceNumber = int(serviceNum)
+        print (serviceNumber)
     except ValueError:
         print("Illegal service number. Not a number.")
         return false
     
     if (len(serviceNum) != 5 or serviceNum[0] == 0):
-        print("Illegal service number. Must be 4 numbers and not start with 0")
+        print("Illegal service number. Must be 5 numbers and not start with 0")
         return false
 
     if (serviceNum in validServices):
