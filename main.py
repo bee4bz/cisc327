@@ -170,7 +170,7 @@ def zeroRemaster(incoming):
         final=+str(incoming)
     return final
 
-def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,loginType):
+def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,validTransactionFile,loginType):
     global changedTickets
 
     if (loginType == "agent" and changedTickets >= 20):
@@ -181,6 +181,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,loginTy
     flag =0
     _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
     fileName= os.path.join(_location_,validServiceListFile)
+    fileNameTransaction= os.path.join(_location_,validTransactionFile)
     #open transactionSummaryFile
     with open(fileName) as summaryfile:
         for line in summaryfile:
@@ -190,8 +191,8 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,loginTy
                     updatedLine=line #store the old line in UpdatedLine
 
 
-    #check new servicenumbe!!!
-    with open(fileName) as summaryfile:
+    #check new servicenumber in service list file!!!
+    with open(fileNameTransaction) as summaryfile:
         for line in summaryfile:
             for part in line.split():
                 if str(serviceNumNew) in part: #If the serviceNUM is found in the file
