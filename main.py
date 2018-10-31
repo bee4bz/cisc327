@@ -1,6 +1,7 @@
 import sys,os
 
 cancelledTickets = 0
+changedTickets = 0
 
 def main():
 
@@ -46,6 +47,7 @@ def main():
             if (transaction == "logout"):
                 print("Logging out. Transaction summary file generated.")
                 cancelledTickets = 0
+                changedTickets = 0
                 #GENERATE TRANSACTION SUMMARY. probably seperate method.
                 break
 
@@ -70,7 +72,7 @@ def main():
 
             if (result[0] == "changeticket"):
                 print("Changing ticket...")
-                changeticket(result[1], result[2], result[3], validServiceListFile)
+                changeticket(result[1], result[2], result[3], validServiceListFile, loginType)
 
             if (result[0] == "cancelticket"):
                 print("Cancelling ticket...")
@@ -167,25 +169,43 @@ def zeroRemaster(incoming):
         final=+str(incoming)
     return final
 
-def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile):
+def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,loginType):
+    global changedTickets
+
+    if (loginType == "agent" and changedTickets >= 20):
+        print("Error. You may not change more than 20 tickets per session as an agent.")
+        return
+    
     #Flag to determine if the Service Number is Found. One if YES
     flag =0
-    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    fileName= os.path.join(__location__,validServiceListFile)
+    _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
+    fileName= os.path.join(_location_,validServiceListFile)
     #open transactionSummaryFile
     with open(fileName) as summaryfile:
         for line in summaryfile:
             for part in line.split():
                 if str(serviceNum) in part: #If the serviceNUM is found in the file
-                    flag=1 
+                    flag=1+flag 
                     updatedLine=line #store the old line in UpdatedLine
+
+
+    #check new servicenumbe!!!
+    with open(fileName) as summaryfile:
+        for line in summaryfile:
+            for part in line.split():
+                if str(serviceNumNew) in part: #If the serviceNUM is found in the file
+                    flag=1+flag 
+
+    if (flag <= 1):
+        print("Invalid service numbers. Both must be existing service numbers.")
+
 
     #Parse and change the ticket
     changedResult=[]
     changedResult = updatedLine.split(" ")
     print(changedResult)
     #if the flag was raised
-    if (flag ==1):
+    if (flag ==2):
         #Write the new lines. 
         bufferLine=[]
         print(changedResult[2])
@@ -199,6 +219,9 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile):
             print (bufferLine)
             with open(fileName, 'a') as file:
                 file.write("CHG "+str(bufferLine)+"\n")
+
+    if (loginType == "agent"):
+        changedTickets += ticketNum
 
 
 
@@ -221,6 +244,10 @@ def cancelticket(serviceNum,ticketNum,validServiceListFile,loginType):
                     flag=1 
                     updatedLine=line #store the old line in UpdatedLine
 
+    if (flag == 0):
+        print("Invalid service number. That service does not exist.")
+        return
+
     #Parse and change the ticket
     changedResult=[]
     changedResult = updatedLine.split(" ")
@@ -240,5 +267,8 @@ def cancelticket(serviceNum,ticketNum,validServiceListFile,loginType):
             print (bufferLine)
             with open(fileName, 'a') as file:
                 file.write("CAN "+str(bufferLine)+"\n")
+
+    if (loginType == "agent"):
+        cancelledTickets += ticketNum
 
 main()
