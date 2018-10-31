@@ -8,6 +8,7 @@ def main():
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
     global cancelledTickets
+    global changedTickets
 
     while True:
         files = sys.argv[1:]    
