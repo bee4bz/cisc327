@@ -225,7 +225,7 @@ def cancelticket(serviceNum,ticketNum,validServiceListFile):
             bufferLine= changedResult[1] +" "+ zeroRemaster(int(changedResult[2])-ticketNum) +" "+changedResult [3] +" "+ changedResult [4]+" "+changedResult [5]
             print (bufferLine)
             with open(fileName, 'a') as file:
-                file.write("CHG "+str(bufferLine)+"\n")
+                file.write("CAN "+str(bufferLine)+"\n")
         if (int(changedResult[2]) == ticketNum):
             bufferLine= changedResult[1] +" "+ zeroRemaster(int(changedResult[2])) +" "+changedResult [3] +" "+ changedResult [4]+" "+changedResult [5]
             print (bufferLine)
