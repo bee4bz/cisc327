@@ -5,11 +5,13 @@
 #
 
 cd inputs
-for i in *txt
 
+for fileName in *.txt
 do
-    echo "running test $i"
-    ./main.py activeaccts.txt transsummary.txt 
+    echo "running test $fileName"
 
+    inputFile=$(sed '1d' ./input/"$fileName.txt") #remove first descripter line of every txt file.
+
+    ./main.py ../activeaccts.txt ../transsummary.txt  < $inputFile \ > ../outputs/$fileName.log
 
 done
