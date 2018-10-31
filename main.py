@@ -63,6 +63,14 @@ def main(validServiceListFile):
             if (result[0] == "sellticket"):
                 print("Selling ticket...")
                 sellticket(result[1], result[2], validServices)
+
+            if (result[0] == "changeticket"):
+                print("Changing ticket...")
+                changeticket(result[1], result[2], validServices)
+
+            if (result[0] == "cancelticket"):
+                print("Cancelling ticket...")
+                cancelticket(result[1], result[2])
             
 def createservice(serviceNum,date,serviceName, validServices):
     try:
