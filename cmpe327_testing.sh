@@ -12,6 +12,6 @@ do
 
     inputFile=$(sed '1d' ./input/"$fileName.txt") #remove first descripter line of every txt file.
 
-    ./main.py ../activeaccts.txt ../transsummary.txt  < $inputFile \ > ../outputs/$fileName.log
+    python ../main.py ../validServiceList.txt ../transactionSummaryFile.txt  < $inputFile \ > ../outputs/$fileName.log
 
 done
