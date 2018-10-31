@@ -1,4 +1,3 @@
-changeticket(serviceNum,serviceNumNew,ticketNum):
 
 def changeticket(serviceNum,serviceNumNew,ticketNum):
     #Flag to determine if the Service Number is Found. One if YES
@@ -40,7 +39,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum):
 
 def cancelticket(serviceNum,ticketNum):
 
-#Flag to determine if the Service Number + ticket num is Found. One if YES
+    #Flag to determine if the Service Number + ticket num is Found. One if YES
     flag =0
     fileName="transactionSummaryFile.txt"
     #open transactionSummaryFile
@@ -69,3 +68,8 @@ def cancelticket(serviceNum,ticketNum):
                 if (result[0] == "sellticket"):
                     print("Selling ticket...")
                     sellticket(result[1], result[2], validServices)
+
+
+
+changeticket(1234,2343,2)
+
