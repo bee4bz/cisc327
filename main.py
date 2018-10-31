@@ -177,15 +177,25 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile):
         for line in summaryfile:
             for part in line.split():
                 if str(serviceNum) in part: #If the serviceNUM is found in the file
-                    flag=1 
+                    flag=1+flag 
                     updatedLine=line #store the old line in UpdatedLine
+
+
+    #check new servicenumbe!!!
+    with open(fileName) as summaryfile:
+        for line in summaryfile:
+            for part in line.split():
+                if str(serviceNumNew) in part: #If the serviceNUM is found in the file
+                    flag=1+flag 
+                    
+
 
     #Parse and change the ticket
     changedResult=[]
     changedResult = updatedLine.split(" ")
     print(changedResult)
     #if the flag was raised
-    if (flag ==1):
+    if (flag ==2):
         #Write the new lines. 
         bufferLine=[]
         print(changedResult[2])
