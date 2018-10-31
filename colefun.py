@@ -1,5 +1,6 @@
 import sys,os
 
+#Function that adds the zeros on to a line item
 def zeroRemaster(incoming):
     if incoming<10:
         final="000"+str(incoming)
