@@ -1,14 +1,17 @@
 import sys,os
 
-def main(validServiceListFile):
+cancelledTickets = 0
+
+def main():
 
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
+    global cancelledTickets
+
     while True:
-        #files = sys.argv[1:]
-    
-        #validServiceListFile = files[0]
-        #transactionSummaryFile = files[1]
+        files = sys.argv[1:]    
+        validServiceListFile = files[0]
+        transactionSummaryFile = files[1]
         #fileObject = open(transactionSummaryFile, "w")
 
         #Start Code: Login Agent
@@ -42,6 +45,7 @@ def main(validServiceListFile):
 
             if (transaction == "logout"):
                 print("Logging out. Transaction summary file generated.")
+                cancelledTickets = 0
                 #GENERATE TRANSACTION SUMMARY. probably seperate method.
                 break
 
@@ -66,11 +70,11 @@ def main(validServiceListFile):
 
             if (result[0] == "changeticket"):
                 print("Changing ticket...")
-                changeticket(result[1], result[2], validServices)
+                changeticket(result[1], result[2], result[3], validServices)
 
             if (result[0] == "cancelticket"):
                 print("Cancelling ticket...")
-                cancelticket(result[1], result[2])
+                cancelticket(result[1], result[2],validServices, loginType)
             
 def createservice(serviceNum,date,serviceName, validServices):
     try:
@@ -199,7 +203,12 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile):
 
 
 
-def cancelticket(serviceNum,ticketNum,validServiceListFile):
+def cancelticket(serviceNum,ticketNum,validServiceListFile,loginType):
+    global cancelledTickets
+
+    if (loginType == "agent" and cancelledTickets >= 20):
+        print("Error. Too many tickets cancelled in one session as agent.")
+        return
 
     flag =0
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -231,5 +240,5 @@ def cancelticket(serviceNum,ticketNum,validServiceListFile):
             print (bufferLine)
             with open(fileName, 'a') as file:
                 file.write("CAN "+str(bufferLine)+"\n")
-    
-main("validServiceList.txt")
+
+main()
