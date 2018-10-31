@@ -184,7 +184,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum):
         bufferLine[1]= str(serviceNumNew) + changedResult [1] + str(ticketNum) + changedResult [3] + changedResult [4]
     else:
         bufferLine[0]= str(serviceNumNew) + changedResult [1] + str(ticketNum) + changedResult [3] + changedResult [4]
-
+    print (bufferLine)
 
 
 
