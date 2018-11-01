@@ -11,7 +11,7 @@ def main():
     global changedTickets
 
     while True:
-        files = sys.argv[1:]    
+        files = sys.argv[1:]
         validServiceListFile = files[0]
         transactionSummaryFile = files[1]
         #fileObject = open(transactionSummaryFile, "w")
@@ -19,12 +19,15 @@ def main():
         #Start Code: Login Agent
         while True:
             start = input("Please login and specify login type (agent/planner):")
-            if (start != "login agent" and start != "login planner"):
+
+            if (start == "exit"):
+                sys.exit()
+            elif (start != "login agent" and start != "login planner"):
                 print("Incorrect login format. Enter login agent or login planner.")
             else:
                 transac,loginType = start.split(" ")
                 break
-            
+
         #init Services file
         validServices = []
 
@@ -78,7 +81,7 @@ def main():
             if (result[0] == "cancelticket"):
                 print("Cancelling ticket...")
                 cancelticket(result[1], result[2],validServiceListFile, loginType)
-            
+
 def createservice(serviceNum,date,serviceName, validServices):
     try:
         serviceNumber = int(serviceNum)
@@ -86,7 +89,7 @@ def createservice(serviceNum,date,serviceName, validServices):
     except ValueError:
         print("Illegal service number. Not a number.")
         return false
-    
+
     if (len(serviceNum) != 5 or serviceNum[0] == 0):
         print("Illegal service number. Must be 5 numbers and not start with 0")
         return false
@@ -104,7 +107,7 @@ def createservice(serviceNum,date,serviceName, validServices):
     if (len(date) != 8):
         print("Illegal date.")
         return false
-    
+
     year = int(date[0:4])
     month = int(date[4:6])
     day = int(date[6:8])
@@ -134,7 +137,7 @@ def deleteservice(serviceNum, serviceName, validServices):
     except ValueError:
         print("Illegal service number. Not a number.")
         return false
-    
+
     if (len(serviceNum) != 5 or serviceNum[0] == 0):
         print("Illegal service number. Must be 5 numbers and not start with 0")
         return false
@@ -152,7 +155,7 @@ def deleteservice(serviceNum, serviceName, validServices):
          file.write("DEL "+str(bufferLine)+"\n")
     #store in trans summary file and remove from validservices
 
-def sellticket(serviceNum, numTickets, validTransactionFile):    
+def sellticket(serviceNum, numTickets, validTransactionFile):
     if (not serviceNum in validServices):
         print("Service with that service number does not exist.")
         return false
@@ -172,7 +175,7 @@ def sellticket(serviceNum, numTickets, validTransactionFile):
     if (numberTickets < 1 or numberTickets > 1000):
         print("Illegal number of tickets. Must be between 1 and 1000")
         return false
-    
+
     #subtract ticket number from total ticket count, store in trans summary file
 
     flag=0
@@ -184,7 +187,7 @@ def sellticket(serviceNum, numTickets, validTransactionFile):
         for line in summaryfile:
             for part in line.split():
                 if str(serviceNum) in part: #If the serviceNUM is found in the file
-                    flag=1+flag 
+                    flag=1+flag
                     updatedLine=line #store the old line in UpdatedLine
     if flag==1:
         bufferLine=[]
@@ -211,7 +214,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,validTr
     if (loginType == "agent" and changedTickets >= 20):
         print("Error. You may not change more than 20 tickets per session as an agent.")
         return
-    
+
     #Flag to determine if the Service Number is Found. One if YES
     flag =0
     _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
@@ -222,7 +225,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,validTr
         for line in summaryfile:
             for part in line.split():
                 if str(serviceNum) in part: #If the serviceNUM is found in the file
-                    flag=1+flag 
+                    flag=1+flag
                     updatedLine=line #store the old line in UpdatedLine
 
 
@@ -242,7 +245,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,validTr
     print(changedResult)
     #if the flag was raised
     if (flag ==2):
-        #Write the new lines. 
+        #Write the new lines.
         bufferLine=[]
         print(changedResult[2])
         if (int(changedResult[2]) > ticketNum):
@@ -277,7 +280,7 @@ def cancelticket(serviceNum,ticketNum,validServiceListFile,loginType):
         for line in summaryfile:
             for part in line.split():
                 if str(serviceNum) in part: #If the serviceNUM is found in the file
-                    flag=1 
+                    flag=1
                     updatedLine=line #store the old line in UpdatedLine
 
     if (flag == 0):
@@ -290,7 +293,7 @@ def cancelticket(serviceNum,ticketNum,validServiceListFile,loginType):
     print(changedResult)
     #if the flag was raised
     if (flag ==1):
-        #Write the new lines. 
+        #Write the new lines.
         bufferLine=[]
         print(changedResult[2])
         if (int(changedResult[2]) > ticketNum):

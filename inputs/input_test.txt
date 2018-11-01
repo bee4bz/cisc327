@@ -1,3 +1,4 @@
 Testing the first file
 login agent
 logout
+exit

@@ -7,7 +7,7 @@
 cd inputs
 
 for i in *.txt do
-  echo "checking outputs of test $i"
+  echo "checking outputs of test".$i
   diff ../outputs/$i.txt ../expected/$i.txt
   diff ../outputs/$i.log ../expected/$i.log
 done
