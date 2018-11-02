@@ -2,11 +2,12 @@ import sys,os
 
 cancelledTickets = 0
 changedTickets = 0
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 def main():
 
-    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-
+    
+    global __location__
     global cancelledTickets
     global changedTickets
 
@@ -61,7 +62,7 @@ def main():
 
             if (result[0] == "createservice" and loginType == "planner"):
                 print("Creating service...")
-                temp = createservice(result[1],result[2],result[3], validServices)
+                temp = createservice(result[1],result[2],result[3], validServiceListFile)
                 tempServices.append(temp)
 
             if (result[0] == "deleteservice" and loginType == "agent"):
@@ -69,11 +70,11 @@ def main():
 
             if (result[0] == "deleteservice" and loginType == "planner"):
                 print("Deleting service...")
-                deleteservice(result[1],result[2], validServices)
+                deleteservice(result[1],result[2], validServiceListFile)
 
             if (result[0] == "sellticket"):
                 print("Selling ticket...")
-                sellticket(result[1], result[2], validServices)
+                sellticket(result[1], result[2], validServiceListFile)
 
             if (result[0] == "changeticket"):
                 print("Changing ticket...")
@@ -122,8 +123,8 @@ def createservice(serviceNum,date,serviceName, validServices):
         return 
 
 
-    ___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(___file___)))
-    fileName= os.path.join(___location___,validServices)
+    global __location__
+    fileName= os.path.join(__location__,validServices)
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" "+date
     print (bufferLine)
@@ -147,8 +148,8 @@ def deleteservice(serviceNum, serviceName, validServices):
         print("Service with that service number does not exist.")
         return 
 
-    ___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(___file__)))
-    fileName= os.path.join(___location___,validServices)
+    global __location__
+    fileName= os.path.join(__location__,validServices)
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" 00000000"
     print (bufferLine)
@@ -180,8 +181,9 @@ def sellticket(serviceNum, numTickets, validTransactionFile):
     #subtract ticket number from total ticket count, store in trans summary file
 
     flag=0
-    ___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file___)))
-    fileName= os.path.join(___location___,validTransactionFile)
+    global __location__
+    #___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file___)))
+    fileName= os.path.join(__location__,validTransactionFile)
 
     #open transactionSummaryFile
     with open(fileName) as summaryfile:
@@ -196,6 +198,9 @@ def sellticket(serviceNum, numTickets, validTransactionFile):
         print (bufferLine)
         with open(fileName, 'a') as file:
             file.write("SEL "+str(bufferLine)+"\n")
+    else:
+        print("Service with that service number does not exist.")
+        return false
 
 #Function that adds the zeros on to a line item
 def zeroRemaster(incoming):
@@ -218,7 +223,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,validTr
 
     #Flag to determine if the Service Number is Found. One if YES
     flag =0
-    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    global __location__
     fileName= os.path.join(__location__,validServiceListFile)
     fileNameTransaction= os.path.join(__location__,validTransactionFile)
     #open transactionSummaryFile
@@ -274,7 +279,7 @@ def cancelticket(serviceNum,ticketNum,validServiceListFile,loginType):
         return
 
     flag =0
-    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    global __location__
     fileName= os.path.join(__location__,validServiceListFile)
     #open transactionSummaryFile
     with open(fileName) as summaryfile:
