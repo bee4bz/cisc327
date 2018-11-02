@@ -15,7 +15,6 @@ def main():
         files = sys.argv[1:]
         validServiceListFile = files[0]
         transactionSummaryFile = files[1]
-        #fileObject = open(transactionSummaryFile, "w")
 
         #Start Code: Login Agent
         while True:
