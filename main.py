@@ -158,15 +158,15 @@ def deleteservice(serviceNum, serviceName, validServices,validTransListFile):
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" 00000000"
     print (bufferLine)
     with open(fileName, 'a') as file:
-         file.write("DEL "+str(bufferLine)+"\n")
+        file.write("DEL "+str(bufferLine)+"\n")
 
     with open(fileName2,"r+") as f:
-    new_f = f.readlines()
-    f.seek(0)
-    for line in new_f:
-        if str(serviceNum) not in line:
-            f.write(line)
-    f.truncate()
+        new_f = f.readlines()
+        f.seek(0)
+        for line in new_f:
+            if str(serviceNum) not in line:
+                f.write(line)
+        f.truncate()
 
     #store in trans summary file and remove from validservices
 
