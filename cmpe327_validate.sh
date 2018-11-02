@@ -11,9 +11,9 @@ do
   stuff=sudo diff "outputs/${i:8}" "expected/${i:8}"
   #cmp "outputs/${i:8}" "expected/${i:8}"
 
-echo $stuff
+    echo $stuff
 
-    if [ -n "$stuff" ];
+    if [[ ! -n "$stuff" ]]
     then
 
       echo "no"
