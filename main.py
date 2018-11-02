@@ -139,6 +139,7 @@ def createservice(serviceNum,date,serviceName, validTransaction,validServices):
     return serviceNum
 
 def deleteservice(serviceNum, serviceName, validServices,validTransListFile):
+    flag=0
     try:
         serviceNumber = int(serviceNum)
     except ValueError:
@@ -148,27 +149,33 @@ def deleteservice(serviceNum, serviceName, validServices,validTransListFile):
     if (len(serviceNum) != 5 or serviceNum[0] == 0):
         print("Illegal service number. Must be 5 numbers and not start with 0")
         return 
-
-    if (not serviceNum in validServices):
-        print("Service with that service number does not exist.")
-        return 
-
+        
     global __location__
     fileName= os.path.join(__location__,validServices)
     fileName2= os.path.join(__location__,validTransListFile)
+    #check new servicenumber in service list file!!!
+    with open(fileName) as summaryfile:
+        for line in summaryfile:
+            for part in line.split():
+                if str(serviceNum) in part: #If the serviceNUM is found in the file
+                    flag=1
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" 00000000"
     print (bufferLine)
-    with open(fileName, 'a') as file:
-        file.write("DEL "+str(bufferLine)+"\n")
+    if flag ==1:
+        with open(fileName, 'a') as file:
+            file.write("DEL "+str(bufferLine)+"\n")
 
-    with open(fileName2,"r+") as f:
-        new_f = f.readlines()
-        f.seek(0)
-        for line in new_f:
-            if str(serviceNum) not in line:
-                f.write(line)
-        f.truncate()
+        with open(fileName2,"r+") as f:
+            new_f = f.readlines()
+            f.seek(0)
+            for line in new_f:
+                if str(serviceNum) not in line:
+                    f.write(line)
+            f.truncate()
+    else:
+        print("Service with that service number does not exist.")
+        return 
 
     #store in trans summary file and remove from validservices
 
