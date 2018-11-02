@@ -52,7 +52,7 @@ def main():
                 print("Logging out. Transaction summary file generated.")
                 cancelledTickets = 0
                 changedTickets = 0
-                #GENERATE TRANSACTION SUMMARY. probably seperate method.
+                validServices.append(tempServices)
                 break
 
             result = transaction.split(" ")
@@ -61,7 +61,8 @@ def main():
 
             if (result[0] == "createservice" and loginType == "planner"):
                 print("Creating service...")
-                do = createservice(result[1],result[2],result[3], validServices)
+                temp = createservice(result[1],result[2],result[3], validServices)
+                tempServices.append(temp)
 
             if (result[0] == "deleteservice" and loginType == "agent"):
                 print("Must be a planner to delete a service.")
@@ -129,7 +130,7 @@ def createservice(serviceNum,date,serviceName, validServices):
     with open(fileName, 'a') as file:
          file.write("CRE "+str(bufferLine)+"\n")
 
-    #PASSED ALL TESTS, STORE IN TRANS SUMMARY FILE + add to tempservices
+    return serviceNum
 
 def deleteservice(serviceNum, serviceName, validServices):
     try:
