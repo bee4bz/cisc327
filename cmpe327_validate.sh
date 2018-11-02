@@ -13,7 +13,7 @@ do
 
 echo $stuff
 
-    if [ -z "$stuff" ];
+    if [ -n "$stuff" ];
     then
 
       echo "no"
