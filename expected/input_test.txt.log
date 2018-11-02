@@ -1,2 +1,4 @@
-Please login and specify login type (agent/planner):Incorrect login format. Enter login agent or login planner.
+Please login and specify login type (agent/planner):['11111', '22222', '33333']
+Logged in as agent.
+Enter your transaction:Logging out. Transaction summary file generated.
 Please login and specify login type (agent/planner):
