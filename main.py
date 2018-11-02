@@ -83,7 +83,7 @@ def main():
                 print("Cancelling ticket...")
                 cancelticket(result[1], result[2],transactionSummaryFile, loginType)
             else:
-                print("Not known command")
+                print("Unrecognized command.")
 
 def createservice(serviceNum,date,serviceName, validTransaction,validServices):
     try:
