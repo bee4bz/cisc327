@@ -62,7 +62,7 @@ def main():
 
             if (result[0] == "createservice" and loginType == "planner"):
                 print("Creating service...")
-                temp = createservice(result[1],result[2],result[3], transactionSummaryFile)
+                temp = createservice(result[1],result[2],result[3], transactionSummaryFile,validServiceListFile)
                 tempServices.append(temp)
 
             if (result[0] == "deleteservice" and loginType == "agent"):
@@ -70,7 +70,7 @@ def main():
 
             if (result[0] == "deleteservice" and loginType == "planner"):
                 print("Deleting service...")
-                deleteservice(result[1],result[2], transactionSummaryFile)
+                deleteservice(result[1],result[2], transactionSummaryFile,validServiceListFile)
 
             if (result[0] == "sellticket"):
                 print("Selling ticket...")
@@ -84,7 +84,7 @@ def main():
                 print("Cancelling ticket...")
                 cancelticket(result[1], result[2],transactionSummaryFile, loginType)
 
-def createservice(serviceNum,date,serviceName, validServices):
+def createservice(serviceNum,date,serviceName, validTransaction,validServices):
     try:
         serviceNumber = int(serviceNum)
         #print (serviceNumber)
@@ -124,16 +124,19 @@ def createservice(serviceNum,date,serviceName, validServices):
 
 
     global __location__
-    fileName= os.path.join(__location__,validServices)
+    fileName= os.path.join(__location__,validTransaction)
+    fileName2= os.path.join(__location__,validServices)
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" "+date
     print (bufferLine)
     with open(fileName, 'a') as file:
          file.write("CRE "+str(bufferLine)+"\n")
+    with open(fileName2, 'a') as file:
+         file.write(str(serviceNum)+"\n")
 
     return serviceNum
 
-def deleteservice(serviceNum, serviceName, validServices):
+def deleteservice(serviceNum, serviceName, validServices,validTransListFile):
     try:
         serviceNumber = int(serviceNum)
     except ValueError:
@@ -150,11 +153,21 @@ def deleteservice(serviceNum, serviceName, validServices):
 
     global __location__
     fileName= os.path.join(__location__,validServices)
+    fileName2= os.path.join(__location__,validTransListFile)
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" 00000000"
     print (bufferLine)
     with open(fileName, 'a') as file:
          file.write("DEL "+str(bufferLine)+"\n")
+
+    with open(fileName2,"r+") as f:
+    new_f = f.readlines()
+    f.seek(0)
+    for line in new_f:
+        if str(serviceNum) not in line:
+            f.write(line)
+    f.truncate()
+
     #store in trans summary file and remove from validservices
 
 def sellticket(serviceNum, numTickets, validTransactionFile):
