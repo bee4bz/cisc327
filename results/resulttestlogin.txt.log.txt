@@ -43,3 +43,8 @@ outputs/testlogin.txt.log
 !=
 expected/testlogin.txt.log
          
+-----------
+outputs/testlogin.txt.log
+!=
+expected/testlogin.txt.log
+         

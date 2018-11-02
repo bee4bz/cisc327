@@ -13,12 +13,21 @@ do
 
 echo $stuff
 
-    if [ -n "$stuff" ];
+    if [ -z "$stuff" ];
     then
 
       echo "no"
 
     else
+
+
+      echo "$stuff"
+      echo "$stuff"
+      echo "$stuff"
+      echo "$stuff"
+      echo "$stuff"
+      echo "$stuff"
+      
 
       echo "!="
 
