@@ -121,8 +121,8 @@ def createservice(serviceNum,date,serviceName, validServices):
         return false
 
 
-    _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
-    fileName= os.path.join(_location_,validServices)
+    ___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(___file___)))
+    fileName= os.path.join(___location___,validServices)
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" "+date
     print (bufferLine)
@@ -146,8 +146,8 @@ def deleteservice(serviceNum, serviceName, validServices):
         print("Service with that service number does not exist.")
         return false
 
-    _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
-    fileName= os.path.join(_location_,validServices)
+    ___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(___file__)))
+    fileName= os.path.join(___location___,validServices)
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" 00000000"
     print (bufferLine)
@@ -179,8 +179,8 @@ def sellticket(serviceNum, numTickets, validTransactionFile):
     #subtract ticket number from total ticket count, store in trans summary file
 
     flag=0
-    _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
-    fileName= os.path.join(_location_,validTransactionFile)
+    ___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file___)))
+    fileName= os.path.join(___location___,validTransactionFile)
 
     #open transactionSummaryFile
     with open(fileName) as summaryfile:
@@ -217,9 +217,9 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validServiceListFile,validTr
 
     #Flag to determine if the Service Number is Found. One if YES
     flag =0
-    _location_ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(_file_)))
-    fileName= os.path.join(_location_,validServiceListFile)
-    fileNameTransaction= os.path.join(_location_,validTransactionFile)
+    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    fileName= os.path.join(__location__,validServiceListFile)
+    fileNameTransaction= os.path.join(__location__,validTransactionFile)
     #open transactionSummaryFile
     with open(fileName) as summaryfile:
         for line in summaryfile:
