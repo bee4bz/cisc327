@@ -38,7 +38,7 @@ def main():
                 validServices.append(line)
 
         #print the line
-        print(validServices)
+        #print(validServices)
 
         print("Logged in as " + loginType + ".")
 
@@ -85,28 +85,28 @@ def main():
 def createservice(serviceNum,date,serviceName, validServices):
     try:
         serviceNumber = int(serviceNum)
-        print (serviceNumber)
+        #print (serviceNumber)
     except ValueError:
         print("Illegal service number. Not a number.")
-        return false
+        return 
 
     if (len(serviceNum) != 5 or serviceNum[0] == 0):
         print("Illegal service number. Must be 5 numbers and not start with 0")
-        return false
+        return 
 
     if (serviceNum in validServices):
         print("Service with that service number already exists")
-        return false
+        return 
 
     try:
         dateNum = int(date)
     except ValueError:
         print("Illegal date. Not a number.")
-        return false
+        return 
 
     if (len(date) != 8):
         print("Illegal date.")
-        return false
+        return 
 
     year = int(date[0:4])
     month = int(date[4:6])
@@ -114,11 +114,11 @@ def createservice(serviceNum,date,serviceName, validServices):
 
     if (year < 1980 or year > 2999 or month < 1 or month > 12 or day < 1 or day > 31):
         print("Illegal date. Date format incorrect.")
-        return false
+        return 
 
     if (len(serviceName) < 3 or len(serviceName) > 39):
         print("Illegal service name. Must be between 3 and 39 characters")
-        return false
+        return 
 
 
     ___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(___file___)))
@@ -136,15 +136,15 @@ def deleteservice(serviceNum, serviceName, validServices):
         serviceNumber = int(serviceNum)
     except ValueError:
         print("Illegal service number. Not a number.")
-        return false
+        return 
 
     if (len(serviceNum) != 5 or serviceNum[0] == 0):
         print("Illegal service number. Must be 5 numbers and not start with 0")
-        return false
+        return 
 
     if (not serviceNum in validServices):
         print("Service with that service number does not exist.")
-        return false
+        return 
 
     ___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(___file__)))
     fileName= os.path.join(___location___,validServices)
@@ -158,23 +158,23 @@ def deleteservice(serviceNum, serviceName, validServices):
 def sellticket(serviceNum, numTickets, validTransactionFile):
     if (not serviceNum in validServices):
         print("Service with that service number does not exist.")
-        return false
+        return 
 
     try:
         serviceNumber = int(serviceNum)
     except ValueError:
         print("Illegal service number. Not a number.")
-        return false
+        return 
 
     try:
         numberTickets = int(numTickets)
     except ValueError:
         print("Illegal service number. Not a number.")
-        return false
+        return 
 
     if (numberTickets < 1 or numberTickets > 1000):
         print("Illegal number of tickets. Must be between 1 and 1000")
-        return false
+        return 
 
     #subtract ticket number from total ticket count, store in trans summary file
 
