@@ -1,0 +1,15 @@
+-----------
+outputs/input_test.txt.log
+!=
+expected/input_test.txt.log
+         
+-----------
+outputs/input_test.txt.log
+!=
+expected/input_test.txt.log
+         
+-----------
+outputs/input_test.txt.log
+!=
+expected/input_test.txt.log
+         

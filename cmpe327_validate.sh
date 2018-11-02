@@ -11,29 +11,31 @@ do
   stuff=sudo diff "outputs/${i:8}" "expected/${i:8}"
   #cmp "outputs/${i:8}" "expected/${i:8}"
 
-#echo $stuff
+echo $stuff
 
-  if [ -n "$stuff" ];
-  then
+    if [ -n "$stuff" ];
+    then
 
-    echo "no"
+      echo "no"
 
-  else
+    else
 
-    echo "!="
+      echo "!="
 
-    echo "outputs/${i:8}"
-    echo "Not a Match"
+      echo "outputs/${i:8}"
+      echo "         "
+      echo "expected/${i:8}"
+      echo "Not a Match"
 
-    echo "       "
+      echo "       "
     #cat outputs/${i:8}
     #cat expected/${i:8}
-    echo "-----------" >>"results/result${i:8}.txt"
-    echo "outputs/${i:8}">>"results/result${i:8}.txt"
-    echo "!="
-    echo "!=" >>"results/result${i:8}.txt"
-    echo "expected/${i:8}">>"results/result${i:8}.txt"
-    echo "         " >>"results/result${i:8}.txt"
+      echo "-----------" >>"results/result${i:8}.txt"
+      echo "outputs/${i:8}">>"results/result${i:8}.txt"
+      echo "!="
+      echo "!=" >>"results/result${i:8}.txt"
+      echo "expected/${i:8}">>"results/result${i:8}.txt"
+      echo "         " >>"results/result${i:8}.txt"
 
 
   fi
