@@ -62,7 +62,7 @@ def main():
 
             if (result[0] == "createservice" and loginType == "planner"):
                 print("Creating service...")
-                temp = createservice(result[1],result[2],result[3], validServiceListFile)
+                temp = createservice(result[1],result[2],result[3], transactionSummaryFile)
                 tempServices.append(temp)
 
             if (result[0] == "deleteservice" and loginType == "agent"):
@@ -70,19 +70,19 @@ def main():
 
             if (result[0] == "deleteservice" and loginType == "planner"):
                 print("Deleting service...")
-                deleteservice(result[1],result[2], validServiceListFile)
+                deleteservice(result[1],result[2], transactionSummaryFile)
 
             if (result[0] == "sellticket"):
                 print("Selling ticket...")
-                sellticket(result[1], result[2], validServiceListFile)
+                sellticket(result[1], result[2], transactionSummaryFile)
 
             if (result[0] == "changeticket"):
                 print("Changing ticket...")
-                changeticket(result[1], result[2], result[3], validServiceListFile, loginType)
+                changeticket(result[1], result[2], result[3], transactionSummaryFile, loginType)
 
             if (result[0] == "cancelticket"):
                 print("Cancelling ticket...")
-                cancelticket(result[1], result[2],validServiceListFile, loginType)
+                cancelticket(result[1], result[2],transactionSummaryFile, loginType)
 
 def createservice(serviceNum,date,serviceName, validServices):
     try:
