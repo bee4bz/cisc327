@@ -1,0 +1,4 @@
+----Test Login of app
+login planner
+logout
+exit
