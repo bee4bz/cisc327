@@ -163,26 +163,29 @@ for f in range(0,(len(transact))):
 	#Create service ----------------------
 	#----------------------
 	if (tempTrans[0]=='CRE'):
-		#Add to summary
-		if ('DEL '+tempTrans[1]) not in open(fileName2).read():
-			if ('SEL '+tempTrans[1]) not in open(fileName2).read():
-				if ('CAN '+tempTrans[1]) not in open(fileName2).read():
-					if ('CHG '+tempTrans[1]) not in open(fileName2).read():
-							
-						#First check if the service already excists
-						if tempTrans[1] in open(fileName).read():
-							print("INVALID")
-						else:			
-							tempList=[]
-							tempList=tempTrans[1].split('|') #seperate the temptrans variable by character
-							if len(tempList)==5: #Then check If list length is equal to five
-								if (tempList[0]!= '0'): #check if first element not zero. 
-									with open(fileName, 'a') as file:
-										file.write(str(tempTrans[1])+'\n')
+
+		#check number of tickets
+		if (int(tempTrans[2]>100 and int(tempTrans[2]<=0):
+			#Add to summary
+			if ('DEL '+tempTrans[1]) not in open(fileName2).read():
+				if ('SEL '+tempTrans[1]) not in open(fileName2).read():
+					if ('CAN '+tempTrans[1]) not in open(fileName2).read():
+						if ('CHG '+tempTrans[1]) not in open(fileName2).read():
+								
+							#First check if the service already excists
+							if tempTrans[1] in open(fileName).read():
+								print("INVALID")
+							else:			
+								tempList=[]
+								tempList=tempTrans[1].split('|') #seperate the temptrans variable by character
+								if len(tempList)==5: #Then check If list length is equal to five
+									if (tempList[0]!= '0'): #check if first element not zero. 
+										with open(fileName, 'a') as file:
+											file.write(str(tempTrans[1])+'\n')
+									else: 
+										print("INVALID")
 								else: 
 									print("INVALID")
-							else: 
-								print("INVALID")
     #Delete service ----------------------
 	#----------------------
 	if (tempTrans[0]=='DEL'):
