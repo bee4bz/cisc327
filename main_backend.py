@@ -182,6 +182,8 @@ for f in range(0,(len(transact))):
 									if (tempList[0]!= '0'): #check if first element not zero. 
 										with open(fileName, 'a') as file:
 											file.write(str(tempTrans[1])+'\n')
+										with open(fileName3, 'a') as file:
+											file.write(str(tempTrans[1])+' '+str(tempTrans[2])+' 0000'+str(tempTrans[4])+
 									else: 
 										print("INVALID")
 								else: 
