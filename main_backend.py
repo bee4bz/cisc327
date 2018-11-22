@@ -177,7 +177,7 @@ for f in range(0,(len(transact))):
 					print("INVALID")
 				else:			
 					tempList=[]
-					tempList=tempTrans[1].split('|') #seperate the temptrans variable by character
+					tempList=tempTrans[1].split() #seperate the temptrans variable by character
 					if (len(tempList)==5) and (tempList[0]!= '0'): #Then check If list length is equal to five
 																	#check if first element not zero. 
 						with open(fileName, 'a') as file:
