@@ -188,10 +188,10 @@ for f in range(0,(len(transact))):
 						sys.exit()
 								
 							
-		else:
+                        else:
+                            sys.exit()
+		else: 
 			sys.exit()
-			else: 
-				sys.exit()
 				
 
     #Delete service ----------------------
