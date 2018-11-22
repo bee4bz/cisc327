@@ -118,53 +118,50 @@ for f in range(0,(len(transact))):
     #CHANGE TICKET ----------------------
     #----------------------
     if (tempTrans[0]=='CHG'):
-            #check if service number is in summary file
-            #print("----------------------")
-            #print("----------------------")
-            if any(tempTrans[1] in s for s in summary):
-                    print ('In Summary File!')
-            #check if other service number is in summary file
-            if any(tempTrans[3] in s for s in summary):
-                    print ('Also, In Summary File!')
+        #check if service number is in summary file
+        #print("----------------------")
+        #print("----------------------")
+        if any(tempTrans[1] in s for s in summary):
+            print ('In Summary File!')
+        #check if other service number is in summary file
+        if any(tempTrans[3] in s for s in summary):
+            print ('Also, In Summary File!')
 
 
-            #check in central services
-            CServicesLine=[]
-            #Keep track of lines that have been taken out. 
-            lineTrack=0
+        #check in central services
+        CServicesLine=[]
+        #Keep track of lines that have been taken out. 
+        lineTrack=0
 
-            #Scan the central file for the transaction service ID
-            for item in central:
-                    
-                    if tempTrans[1] in item:
-                            ##print (item.split())
-                            CServicesLine= item.split() #if found, split it into this variable
-                            break;
-                    lineTrack=lineTrack+1
-            
-            #sub the number of tickets in CServices
-            CServicesLine[2]=zeroRemaster(int(CServicesLine[2])-int(tempTrans[2]))
-            
+        #Scan the central file for the transaction service ID
+        for item in central:                
+            if tempTrans[1] in item:
+                ##print (item.split())
+                CServicesLine= item.split() #if found, split it into this variable
+                break;
+            lineTrack=lineTrack+1
 
-            #keep line track and add it to the linetracker array with the new written line
-            linesTracker[lineTrack]=str(CServicesLine[0]) +" "+ str(CServicesLine[1])+" "+str(CServicesLine[2]) +" "+ str(CServicesLine[3])
+        #sub the number of tickets in CServices
+        CServicesLine[2]=zeroRemaster(int(CServicesLine[2])-int(tempTrans[2]))        
 
-            lineTrack=0
-            #Scan the central file for the second transaction service ID
-            for item in central:
-                    
-                    if tempTrans[3] in item:
-                            #print (item.split())
-                            CServicesLine= item.split() #if found, split it into this variable
-                            break;
-                    lineTrack=lineTrack+1
+        #keep line track and add it to the linetracker array with the new written line
+        linesTracker[lineTrack]=str(CServicesLine[0]) +" "+ str(CServicesLine[1])+" "+str(CServicesLine[2]) +" "+ str(CServicesLine[3])
 
-            #add the number of tickets in CServices
-            CServicesLine[2]=zeroRemaster(int(CServicesLine[2])+int(tempTrans[2]))
-            ##print(CServicesLine[2])
-            #print(linesTracker[2])
-            #keep line track and add it to the linetracker array with the new written line
-            linesTracker[lineTrack]=str(CServicesLine[0]) +" "+ str(CServicesLine[1])+" "+str(CServicesLine[2]) +" "+ str(CServicesLine[3])
+        lineTrack=0
+        #Scan the central file for the second transaction service ID
+        for item in central:                
+            if tempTrans[3] in item:
+                #print (item.split())
+                CServicesLine= item.split() #if found, split it into this variable
+                break;
+            lineTrack=lineTrack+1
+
+        #add the number of tickets in CServices
+        CServicesLine[2]=zeroRemaster(int(CServicesLine[2])+int(tempTrans[2]))
+        ##print(CServicesLine[2])
+        #print(linesTracker[2])
+        #keep line track and add it to the linetracker array with the new written line
+        linesTracker[lineTrack]=str(CServicesLine[0]) +" "+ str(CServicesLine[1])+" "+str(CServicesLine[2]) +" "+ str(CServicesLine[3])
     #Create service ----------------------
     #----------------------
     if (tempTrans[0]=='CRE'):
@@ -203,8 +200,8 @@ for f in range(0,(len(transact))):
             d = f.readlines()
             f.seek(0)
             for i in d:
-                    if i != tempTrans[1]:
-                            f.write(i)
+                if i != tempTrans[1]:
+                    f.write(i)
             f.truncate()
             f.close()
 		
@@ -214,11 +211,11 @@ for f in range(0,(len(transact))):
 #ones from the old central services file
 
 for i in range(0,(len(central)-1)):
-	if (linesTracker[i])==None: #if nothing is found in the element
-		linesTracker[i]=central[i] #fill with the excisting line in the old central services file
+    if (linesTracker[i])==None: #if nothing is found in the element
+	linesTracker[i]=central[i] #fill with the excisting line in the old central services file
 
 #overwrite everything to a the central file!
 with open(fileName3, "w+") as output:
-	for item in linesTracker:
-		output.write("%s\n" % item)
+    for item in linesTracker:
+	output.write("%s\n" % item)
 
