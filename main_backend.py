@@ -97,10 +97,10 @@ for f in range(0,(len(transact))):
             #Scan the central file for the transaction service ID
             for item in central:				
                 if tempTrans[1] in item:
-                        ##print (item.split())
-                        CServicesLine= item.split() #if found, split it into this variable
-                        flag = false #THE PROPER SERVICE NUMBER HAS BEEN FOUND. NO NEED FOR ERROR
-                        break;
+                    ##print (item.split())
+                    CServicesLine= item.split() #if found, split it into this variable
+                    flag = false #THE PROPER SERVICE NUMBER HAS BEEN FOUND. NO NEED FOR ERROR
+                    break;
                 lineTrack=lineTrack+1
 
             if (flag):
