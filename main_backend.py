@@ -111,7 +111,7 @@ for f in range(0,(len(transact))):
 			#keep line track and add it to the linetracker array with the new written line
 			linesTracker[lineTrack]=str(CServicesLine[0]) +" "+ str(CServicesLine[1])+" "+str(CServicesLine[2]) +" "+ str(CServicesLine[3])
 		else:
-			print 'invalid'
+			print("INVALID")
 			sys.exit()
 	#CHANGE TICKET ----------------------
 	#----------------------
