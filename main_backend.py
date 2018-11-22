@@ -172,20 +172,20 @@ for f in range(0,(len(transact))):
 			#Add to summary
 			if (('DEL '+tempTrans[1]) not in open(fileName2).read()) and (('SEL '+tempTrans[1]) not in open(fileName2).read()) and (('CAN '+tempTrans[1]) not in open(fileName2).read()) and (('CHG '+tempTrans[1]) not in open(fileName2).read()):
 								
-							#First check if the service already excists
-							if tempTrans[1] in open(fileName).read():
-								print("INVALID")
-							else:			
-								tempList=[]
-								tempList=tempTrans[1].split('|') #seperate the temptrans variable by character
-								if (len(tempList)==5) and (tempList[0]!= '0'): #Then check If list length is equal to five
-																				#check if first element not zero. 
-									with open(fileName, 'a') as file:
-										file.write(str(tempTrans[1])+'\n')
-									with open(fileName3, 'a') as file:
-										file.write(str(tempTrans[1])+' '+str(tempTrans[2])+' 0000'+str(tempTrans[4])+
-								else: 
-									sys.exit()
+				#First check if the service already excists
+				if tempTrans[1] in open(fileName).read():
+					print("INVALID")
+				else:			
+					tempList=[]
+					tempList=tempTrans[1].split('|') #seperate the temptrans variable by character
+					if (len(tempList)==5) and (tempList[0]!= '0'): #Then check If list length is equal to five
+																	#check if first element not zero. 
+						with open(fileName, 'a') as file:
+							file.write(str(tempTrans[1])+'\n')
+						with open(fileName3, 'a') as file:
+							file.write(str(tempTrans[1])+' '+str(tempTrans[2])+' 0000'+str(tempTrans[4])+
+					else: 
+						sys.exit()
 								
 							
 		else:
