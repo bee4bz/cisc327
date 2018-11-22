@@ -65,7 +65,7 @@ for f in range(0,(len(transact))):
 	if (tempTrans[0]=='SEL'):
 		#check if in summary file
 		if any(tempTrans[1] in s for s in summary):
-			#print ('In Summary File!')
+			print ('In Summary File!')
 		#check in central services
 		CServicesLine=[]
 		#Keep track of lines that have been taken out. 
@@ -90,7 +90,7 @@ for f in range(0,(len(transact))):
 	if (tempTrans[0]=='CAN'):
 		#check if in summary file
 		if any(tempTrans[1] in s for s in summary):
-			#print ('In Summary File!')
+			print ('In Summary File!')
 		#check in central services
 		CServicesLine=[]
 		#Keep track of lines that have been taken out. 
@@ -117,10 +117,10 @@ for f in range(0,(len(transact))):
 		#print("----------------------")
 		#print("----------------------")
 		if any(tempTrans[1] in s for s in summary):
-			#print ('In Summary File!')
+			print ('In Summary File!')
 		#check if other service number is in summary file
 		if any(tempTrans[3] in s for s in summary):
-			#print ('Also, In Summary File!')
+			print ('Also, In Summary File!')
 
 
 		#check in central services
@@ -164,8 +164,39 @@ for f in range(0,(len(transact))):
 	#----------------------
 	if (tempTrans[0]=='CRE'):
 		#Add to summary
-		with open(fileName, 'a') as file:
-			file.write(str(tempTrans[1])+'\n')
+		#check the date
+		#first split the temptrans variable into elements 
+		tempDate=[]
+		tempYear=[]
+		tempMonth=[]
+		tempDay=[]
+		tempDate=tempTrans[5].split('|')
+		#find the year
+		tempYear = [''.join(tempDate[0:4])]
+		#find the month
+		tempMonth=[''.join(tempMonth[4:6])]
+		#find the day
+		tempDay=[''.join(tempDay[6:7])]
+		if (int(tempYear) >= 1980):
+			if (int(tempYear) <= 2999):
+				if (int(tempMonth) <= 12):
+					if (int(tempMonth) >= 1):
+						if (int(tempDay) <= 31):
+							if (int(tempDay) >= 1):					
+								#First check if the service already excists
+								if tempTrans[1] in open(fileName).read():
+									print("INVALID")
+								else:			
+									tempList=[]
+									tempList=tempTrans[1].split('|') #seperate the temptrans variable by character
+									if len(tempList)==5: #Then check If list length is equal to five
+										if (tempList[0]!= '0'): #check if first element not zero. 
+											with open(fileName, 'a') as file:
+												file.write(str(tempTrans[1])+'\n')
+										else: 
+											print("INVALID")
+									else: 
+										print("INVALID")
     #Delete service ----------------------
 	#----------------------
 	if (tempTrans[0]=='DEL'):
