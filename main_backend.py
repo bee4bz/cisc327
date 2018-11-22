@@ -90,26 +90,29 @@ for f in range(0,(len(transact))):
 	if (tempTrans[0]=='CAN'):
 		#check if in summary file
 		if any(tempTrans[1] in s for s in summary):
-			print ('In Summary File!')
-		#check in central services
-		CServicesLine=[]
-		#Keep track of lines that have been taken out. 
-		lineTrack=0
-
-		#Scan the central file for the transaction service ID
-		for item in central:
 			
-			if tempTrans[1] in item:
-				##print (item.split())
-				CServicesLine= item.split() #if found, split it into this variable
-				break;
-			lineTrack=lineTrack+1
+			#check in central services
+			CServicesLine=[]
+			#Keep track of lines that have been taken out. 
+			lineTrack=0
 
-		#sub the number of tickets in CServices
-		CServicesLine[2]=zeroRemaster(int(CServicesLine[2])-int(tempTrans[2]))
-		
-		#keep line track and add it to the linetracker array with the new written line
-		linesTracker[lineTrack]=str(CServicesLine[0]) +" "+ str(CServicesLine[1])+" "+str(CServicesLine[2]) +" "+ str(CServicesLine[3])
+			#Scan the central file for the transaction service ID
+			for item in central:
+				
+				if tempTrans[1] in item:
+					##print (item.split())
+					CServicesLine= item.split() #if found, split it into this variable
+					break;
+				lineTrack=lineTrack+1
+
+			#sub the number of tickets in CServices
+			CServicesLine[2]=zeroRemaster(int(CServicesLine[2])-int(tempTrans[2]))
+			
+			#keep line track and add it to the linetracker array with the new written line
+			linesTracker[lineTrack]=str(CServicesLine[0]) +" "+ str(CServicesLine[1])+" "+str(CServicesLine[2]) +" "+ str(CServicesLine[3])
+		else:
+			print 'invalid'
+			sys.exit()
 	#CHANGE TICKET ----------------------
 	#----------------------
 	if (tempTrans[0]=='CHG'):
@@ -165,7 +168,7 @@ for f in range(0,(len(transact))):
 	if (tempTrans[0]=='CRE'):
 
 		#check number of tickets
-		if (int(tempTrans[2]>100 and int(tempTrans[2]<=0):
+		if (int(tempTrans[2]<1000 and int(tempTrans[2]>=0):
 			#Add to summary
 			if ('DEL '+tempTrans[1]) not in open(fileName2).read():
 				if ('SEL '+tempTrans[1]) not in open(fileName2).read():
@@ -185,9 +188,22 @@ for f in range(0,(len(transact))):
 										with open(fileName3, 'a') as file:
 											file.write(str(tempTrans[1])+' '+str(tempTrans[2])+' 0000'+str(tempTrans[4])+
 									else: 
-										print("INVALID")
+										sys.exit()
 								else: 
-									print("INVALID")
+									sys.exit()
+							else: 
+								sys.exit()
+						else: 
+							sys.exit()
+		else:
+			sys.exit()
+			else: 
+				sys.exit()
+				else: 
+					sys.exit()
+					else: 
+						sys.exit()
+
     #Delete service ----------------------
 	#----------------------
 	if (tempTrans[0]=='DEL'):
