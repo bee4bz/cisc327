@@ -12,6 +12,7 @@ do
   #cmp "outputs/${i:8}" "expected/${i:8}"
 
     echo $stuff
+    touch "results/result${i:8}"
 
     if [[ ! -n "$stuff" ]]
     then
@@ -39,12 +40,12 @@ do
       echo "       "
     #cat outputs/${i:8}
     #cat expected/${i:8}
-      echo "-----------" >>"results/result${i:8}.txt"
-      echo "outputs/${i:8}">>"results/result${i:8}.txt"
+      echo "-----------" >>"results/result${i:8}"
+      echo "outputs/${i:8}">>"results/result${i:8}"
       echo "!="
       echo "!=" >>"results/result${i:8}.txt"
-      echo "expected/${i:8}">>"results/result${i:8}.txt"
-      echo "         " >>"results/result${i:8}.txt"
+      echo "expected/${i:8}">>"results/result${i:8}"
+      echo "         " >>"results/result${i:8}"
 
 
   fi

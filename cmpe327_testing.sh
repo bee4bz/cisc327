@@ -7,7 +7,7 @@
 
 for fileName in inputs/*.txt;
 do
-    echo "running test $fileName"
+    echo "running test: $fileName"
 
     inputFile=$(sed '1d' "$fileName") #remove first descripter line of every txt file.
 
