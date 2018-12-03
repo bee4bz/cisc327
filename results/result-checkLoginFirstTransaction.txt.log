@@ -1,0 +1,6 @@
+-----------
+It's not a match
+outputs/checkLoginFirstTransaction.txt.log
+!=
+expected/checkLoginFirstTransaction.txt.log
+         

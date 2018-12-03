@@ -7,45 +7,61 @@
 for i in outputs/*
 do
 
+  echo " "
+  echo " "
   echo "checking outputs of test"
-  stuff=sudo diff "outputs/${i:8}" "expected/${i:8}"
+  #stuff=sudo diff "outputs/${i:8}" "expected/${i:8}"
+  
+  stuff=sudo diff "outputs/${i:8}" "expected/${i:8}" && stuff=1 || stuff=2
+  
+  
   #cmp "outputs/${i:8}" "expected/${i:8}"
 
+
+
+
+echo "----------------"
+
     echo $stuff
-    touch "results/result${i:8}"
+    touch "results/result-${i:8}"
 
-    if [[ ! -n "$stuff" ]]
+echo "----------------"
+
+    if [[ 1 -eq "$stuff" ]]
     then
+      
+      echo "-----------" >>"results/result-${i:8}"
+      echo "It's a match" >>"results/result-${i:8}"
+      echo "outputs/${i:8}">>"results/result-${i:8}"
+      echo "==" >>"results/result-${i:8}"
+      echo "expected/${i:8}">>"results/result-${i:8}"
+      echo "         " >>"results/result-${i:8}"
 
-      echo "no"
+      
+      echo "Matches"
+      
 
     else
 
+      echo "$stuff"
 
-      echo "$stuff"
-      echo "$stuff"
-      echo "$stuff"
-      echo "$stuff"
-      echo "$stuff"
-      echo "$stuff"
-      
 
       echo "!="
 
       echo "outputs/${i:8}"
+      echo "Does not Match"
       echo "         "
       echo "expected/${i:8}"
-      echo "Not a Match"
 
       echo "       "
     #cat outputs/${i:8}
     #cat expected/${i:8}
-      echo "-----------" >>"results/result${i:8}"
-      echo "outputs/${i:8}">>"results/result${i:8}"
-      echo "!="
-      echo "!=" >>"results/result${i:8}.txt"
-      echo "expected/${i:8}">>"results/result${i:8}"
-      echo "         " >>"results/result${i:8}"
+      echo "-----------" >>"results/result-${i:8}"
+      echo "It's not a match" >>"results/result-${i:8}"
+      echo "outputs/${i:8}">>"results/result-${i:8}"
+      echo "!=" >>"results/result-${i:8}"
+      echo "expected/${i:8}">>"results/result-${i:8}"
+      echo "         " >>"results/result-${i:8}"
 
 
   fi
