@@ -32,7 +32,7 @@ do
     
     echo "moving transfile"
     
-    mv transactionSummaryFile.txt sessions/session${1}transactionSummaryFile${fileName:15}
+    #mv transactionSummaryFile.txt sessions/session${1}transactionSummaryFile${fileName:15}
     
     #iterate up loopNumber
     loopNumber=$((var + 1))
@@ -45,13 +45,13 @@ loopyNumber=0
 #mv transactionSummaryFile.txt transactionSummaryFile.old.txt
 touch transactionSummaryFile.txt
 
-for fileName in session${1}Inputs/*.txt;
-do
-    cat sessions/session${1}transactionSummaryFile${fileName:15} >> transactionSummaryFile.txt
-    echo "copying sessions/session${1}transactionSummaryFile${fileName:15} into main trans file."
-    loopyNumber=$((var + 1))
+#for fileName in session${1}Inputs/*.txt;
+#do
+#    cat sessions/session${1}transactionSummaryFile${fileName:15} >> transactionSummaryFile.txt
+#    echo "copying sessions/session${1}transactionSummaryFile${fileName:15} into main trans file."
+#    loopyNumber=$((var + 1))
     
-done
+#done
 
 #end of session code at the end of the concatenated validTransactionFile
 echo "EOS" >> transactionSummaryFile.txt

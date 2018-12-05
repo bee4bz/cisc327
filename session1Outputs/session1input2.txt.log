@@ -1,0 +1,16 @@
+Please login and specify login type (agent/planner):Logged in as planner.
+Enter your transaction:Creating service...
+Illegal service number. Must be 5 numbers and not start with 0
+Enter your transaction:Logging out. Transaction summary file generated.
+Please login and specify login type (agent/planner):Logged in as agent.
+Enter your transaction:Selling ticket...
+44444 0001 0000 000000 00000000
+Enter your transaction:Logging out. Transaction summary file generated.
+Please login and specify login type (agent/planner):Logged in as agent.
+Enter your transaction:Cancelling ticket...
+['SEL', '44444', '0001', '0000', '000000', '00000000\n']
+0001
+44444 0001 0000 000000 00000000
+
+Enter your transaction:Logging out. Transaction summary file generated.
+Please login and specify login type (agent/planner):

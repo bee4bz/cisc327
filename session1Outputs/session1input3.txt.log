@@ -1,0 +1,16 @@
+Please login and specify login type (agent/planner):Logged in as planner.
+Enter your transaction:Deleting service...
+SEL 44444 0001 0000 000000 00000000
+
+
+
+CAN 44444 0001 0000 000000 00000000
+
+
+
+
+
+
+
+Enter your transaction:Logging out. Transaction summary file generated.
+Please login and specify login type (agent/planner):
