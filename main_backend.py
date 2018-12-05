@@ -63,7 +63,7 @@ for f in range(0,(len(transact))):
     if (tempTrans[0]=='SEL'):
         #check if in summary file
         if not any(tempTrans[1] in s for s in summary):
-            print('INVALID')
+            print('INVALID SELL. NOT IN TRANSAC SUMMARY FILE.')
         #check in central services
         CServicesLine=[]
         #Keep track of lines that have been taken out. 
@@ -101,8 +101,8 @@ for f in range(0,(len(transact))):
                     break;
                 lineTrack=lineTrack+1
 
-            if (flag):
-                print('INVALID')
+            if (flag == false):
+                print('INVALID CANCEL. SERVICE NUMBER NOT FOUND.')
                 sys.exit()
 
             #sub the number of tickets in CServices
@@ -111,7 +111,7 @@ for f in range(0,(len(transact))):
             #keep line track and add it to the linetracker array with the new written line
             linesTracker[lineTrack]=str(CServicesLine[0]) +" "+ str(CServicesLine[1])+" "+str(CServicesLine[2]) +" "+ str(CServicesLine[3])
         else:
-            print ('INVALID')
+            print ('INVALID CANCEL. NOT IN TRANSAC SUMMARY FILE.')
             sys.exit()
     #CHANGE TICKET ----------------------
     #----------------------
@@ -120,10 +120,10 @@ for f in range(0,(len(transact))):
         #print("----------------------")
         #print("----------------------")
         if not any(tempTrans[1] in s for s in summary):
-            print ('INVALID')
+            print ('INVALID CHANGE. NOT IN TRANSAC SUMMARY FILE.')
         #check if other service number is in summary file
         if not any(tempTrans[3] in s for s in summary):
-            print ('INVALID')
+            print ('INVALID. NOT IN TRANSAC SUMMARY FILE.')
 
 
         #check in central services
@@ -169,7 +169,7 @@ for f in range(0,(len(transact))):
             if ((('DEL '+tempTrans[1]) not in open(fileName2).read()) and (('SEL '+tempTrans[1]) not in open(fileName2).read()) and (('CAN '+tempTrans[1]) not in open(fileName2).read()) and (('CHG '+tempTrans[1]) not in open(fileName2).read())):								
                 #First check if the service already excists
                 if tempTrans[1] in open(fileName).read():
-                    print("INVALID")
+                    print("INVALID CREATE. SERVICE ALREADY EXISTS.")
                     sys.exit()
                 else:			
                     tempList=[]
@@ -180,13 +180,13 @@ for f in range(0,(len(transact))):
                     with open(fileName3, 'a') as file:
                         file.write(str(tempTrans[1])+' '+str(tempTrans[2])+' 0000'+str(tempTrans[4]))
                 else:
-                    print("INVALID")
+                    print("INVALID CREATE. TRANSACTION FORMATTED INCORRECTLY.")
                     sys.exit()							
             else:
-                print("INVALID")
+                print("INVALID CREATE. SERVICES ALREADY EXISTS.")
                 sys.exit()
         else:
-            print("INVALID")
+            print("INVALID CREATE. INVALID CAPACITY.")
             sys.exit()
                             
 
