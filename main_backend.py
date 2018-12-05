@@ -195,15 +195,15 @@ for f in range(0,(len(transact))):
 #Delete service ----------------------
     #----------------------
     if (tempTrans[0]=='DEL'):
-            #Delete line from summary file
-            f = open(fileName,"r+")
-            d = f.readlines()
-            f.seek(0)
-            for i in d:
-                if i != tempTrans[1]:
-                    f.write(i)
-            f.truncate()
-            f.close()
+        #Delete line from summary file
+        f = open(fileName,"r+")
+        d = f.readlines()
+        f.seek(0)
+        for i in d:
+            if i != tempTrans[1]:
+                f.write(i)
+        f.truncate()
+        f.close()
 		
 #---------------------------------------
 #Writing new Central Services File
@@ -212,10 +212,10 @@ for f in range(0,(len(transact))):
 
 for i in range(0,(len(central)-1)):
     if (linesTracker[i])==None: #if nothing is found in the element
-	linesTracker[i]=central[i] #fill with the excisting line in the old central services file
+        linesTracker[i]=central[i] #fill with the excisting line in the old central services file
 
 #overwrite everything to a the central file!
 with open(fileName3, "w+") as output:
     for item in linesTracker:
-	output.write("%s\n" % item)
+        output.write("%s\n" % item)
 
