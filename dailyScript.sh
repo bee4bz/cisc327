@@ -66,6 +66,10 @@ python3 main_backend.py validServiceList.txt transactionSummaryFile.txt centralF
 
 echo "backend done"
 
+#making central file output Day
+
+cp centralFile.txt centralFilesDailyBackup/centralFileSession1.txt
+
 echo "Day ${1} end"
 
 
