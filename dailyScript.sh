@@ -26,11 +26,13 @@ do
 
     echo "$inputFile"
 
-    python3 main.py validServiceList.txt transactionSummaryFile.txt <<< "$inputFile"  > session${1}Outputs/${fileName:14}.log
+    python3 main.py validServiceList.txt transactionSummaryFile.txt <<< "$inputFile"  > session${1}Outputs/${fileName:15}.log
 
     #echo "$inputFile"
     
-    mv transactionSummaryFile.txt sessions/session${1}transactionSummaryFile${loopNumber}.txt
+    echo "moving transfile"
+    
+    mv transactionSummaryFile.txt sessions/session${1}transactionSummaryFile${fileName:15}
     
     #iterate up loopNumber
     loopNumber=$((var + 1))
@@ -38,16 +40,17 @@ do
 done
 
 #combine transaction summary files at the end of the 'day'
-loopNumber=0
+loopyNumber=0
 
 #mv transactionSummaryFile.txt transactionSummaryFile.old.txt
 touch transactionSummaryFile.txt
 
-for fileName in sessions/*.txt;
+for fileName in session${1}Inputs/*.txt;
 do
-    cat sessions/session${1}transactionSummaryFile${loopNumber}.txt >> transactionSummaryFile.txt
-    echo "copying transactionSummaryFile${loopNumber}.txt into main trans file."
-    loopNumber=$((var + 1))
+    cat sessions/session${1}transactionSummaryFile${fileName:15} >> transactionSummaryFile.txt
+    echo "copying sessions/session${1}transactionSummaryFile${fileName:15} into main trans file."
+    loopyNumber=$((var + 1))
+    
 done
 
 #end of session code at the end of the concatenated validTransactionFile
@@ -57,7 +60,11 @@ echo "EOS" >> transactionSummaryFile.txt
 
 #commented out right now becasue backend script won't work
 
+echo "running backend"
+
 python3 main_backend.py validServiceList.txt transactionSummaryFile.txt centralFile.txt
+
+echo "backend done"
 
 echo "Day ${1} end"
 
