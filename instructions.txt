@@ -1,0 +1,19 @@
+
+
+
+
+***** Running Scripts *****
+
+***** dailyScript.sh *****
+The daily script takes one parameter, day number of the week. it can accept 1->5
+ex.
+./dailyScript.sh 1
+
+It can sometimes work without a  parameter, but also sometimes not. I  recommend to default to 1.
+
+
+***** weeklyTest.sh *****
+This script is simple. It is run by just calling it. There are no parameters ex.
+./weeklyTest.sh
+
+it is just a simple loop that calls the dailyScript.sh with a number parameter
