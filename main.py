@@ -10,6 +10,11 @@ def main():
     global __location__
     global cancelledTickets
     global changedTickets
+    
+    #make a temp file for transactions that gets added to the main file
+    f= open(os.path.join(__location__,"tempTransactionFile.txt"),"w")
+    f.write("")
+    f.close() 
 
     while True:
         files = sys.argv[1:]
@@ -52,6 +57,7 @@ def main():
                 print("Logging out. Transaction summary file generated.")
                 cancelledTickets = 0
                 changedTickets = 0
+                transferTrigger(transactionSummaryFile)
                 validServices.append(tempServices)
                 break
             result = transaction.split(" ")
@@ -86,6 +92,16 @@ def main():
                 print("Cancelling ticket...")
                 cancelticket(result[1], result[2],transactionSummaryFile, loginType)
             
+
+
+def transferTrigger(validTransaction):
+    with open(os.path.join(__location__,"tempTransactionFile.txt")) as f:
+        with open(os.path.join(__location__,validTransaction), "a") as f1:
+            for line in f:
+                f1.write(line+"\n")
+    os.remove(os.path.join(__location__,"tempTransactionFile.txt"))
+
+
 
 def createservice(serviceNum,date,serviceName, validTransaction,validServices):
     try:
@@ -132,10 +148,10 @@ def createservice(serviceNum,date,serviceName, validTransaction,validServices):
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" "+date
     ##print (bufferLine)
-    with open(fileName, 'a') as file:
-         file.write("CRE "+str(bufferLine)+"\n")
+    with open(os.path.join(__location__,"tempTransactionFile.txt"), 'a') as file:
+         file.write("CRE "+str(bufferLine))
     with open(fileName2, 'a') as file:
-         file.write(str(serviceNum)+"\n")
+         file.write(str(serviceNum))
 
     return serviceNum
 
@@ -153,19 +169,21 @@ def deleteservice(serviceNum, serviceName, validServices,validTransListFile):
         
     global __location__
     fileName= os.path.join(__location__,validServices)
-    fileName2= os.path.join(__location__,validTransListFile)
+    fileName2= os.path.join(__location__,"tempTransactionFile.txt")
     #check new servicenumber in service list file!!!
-    with open(fileName) as summaryfile:
+    with open(fileName,"r+") as summaryfile:
         for line in summaryfile:
+            print (line)
             for part in line.split():
                 if str(serviceNum) in part: #If the serviceNUM is found in the file
                     flag=1
+                    
     bufferLine=[]
     bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" 00000000"
    ## print (bufferLine)
     if flag ==1:
-        with open(fileName, 'a') as file:
-            file.write("DEL "+str(bufferLine)+"\n")
+        with open(os.path.join(__location__,"tempTransactionFile.txt"), 'a') as file:
+            file.write("DEL "+str(bufferLine))
 
         with open(fileName2,"r+") as f:
             new_f = f.readlines()
@@ -182,14 +200,18 @@ def deleteservice(serviceNum, serviceName, validServices,validTransListFile):
 
 def sellticket(serviceNum, numTickets, validTransactionFile, validServices):
     global __location__
-    fileName= os.path.join(__location__,validTransactionFile)
+    fileName= os.path.join(__location__,validServices)
 
     with open(fileName) as summaryfile:
         for line in summaryfile:
             for part in line.split():
-                if (not str(serviceNum) in part): #If the serviceNUM is found in the file
-                    print("Service with that service number does not exist.")
-                    return  
+                if (str(serviceNum) in part): #If the serviceNUM is found in the file
+                    if (serviceNum not in line):
+                        print("service number doesn't exist")
+                        return
+                  
+          
+                    
 
     try:
         serviceNumber = int(serviceNum)
@@ -212,7 +234,7 @@ def sellticket(serviceNum, numTickets, validTransactionFile, validServices):
     flag=0
     
     #___location___ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file___)))
-    fileName= os.path.join(__location__,validTransactionFile)
+    fileName= os.path.join(__location__,"tempTransactionFile.txt")
     flag=1
     # #open transactionSummaryFile
     # with open(fileName) as summaryfile:
@@ -228,8 +250,8 @@ def sellticket(serviceNum, numTickets, validTransactionFile, validServices):
     bufferLine=[]
     bufferLine= str(serviceNum) +" "+ numTickets+" 0000 000000 00000000"
     print (bufferLine)
-    with open(fileName, 'a') as file:
-        file.write("SEL "+str(bufferLine)+"\n")
+    with open(os.path.join(__location__,"tempTransactionFile.txt"), 'a') as file:
+        file.write("SEL "+str(bufferLine))
    
 
 #Function that adds the zeros on to a line item
@@ -255,7 +277,7 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validTransactionFile,validSe
     flag =0
     global __location__
     fileName= os.path.join(__location__,validServiceListFile)
-    fileNameTransaction= os.path.join(__location__,validTransactionFile)
+    fileNameTransaction= os.path.join(__location__,"tempTransactionFile.txt")
     #open transactionSummaryFile
     with open(fileNameTransaction) as summaryfile:
         for line in summaryfile:
@@ -294,13 +316,13 @@ def changeticket(serviceNum,serviceNumNew,ticketNum,validTransactionFile,validSe
         if (int(changedResult[1]) > int(ticketNum)):
             bufferLine= str(serviceNumNew) +" "+ zeroRemaster(int(changedResult[2])-int(ticketNum)) +" "+changedResult [3] +" "+ changedResult [4]+" "+changedResult [5]
             print (bufferLine)
-            with open(fileNameTransaction, 'a') as file:
-                file.write("CHG "+str(bufferLine)+"\n")
+            with open(os.path.join(__location__,"tempTransactionFile.txt"), 'a') as file:
+                file.write("CHG "+str(bufferLine))
         if (int(changedResult[1]) == int(ticketNum)):
             bufferLine= str(serviceNumNew) +" "+ zeroRemaster(int(changedResult[2])) +" "+changedResult [3] +" "+ changedResult [4]+" "+changedResult [5]
             print (bufferLine)
-            with open(fileNameTransaction, 'a') as file:
-                file.write("CHG "+str(bufferLine)+"\n")
+            with open(os.path.join(__location__,"tempTransactionFile.txt"), 'a') as file:
+                file.write("CHG "+str(bufferLine))
 
     if (loginType == "agent"):
         changedTickets += int(ticketNum)
@@ -342,13 +364,13 @@ def cancelticket(serviceNum,ticketNum,validServiceListFile,loginType):
         if (int(changedResult[2]) > int(ticketNum)):
             bufferLine= changedResult[1] +" "+ zeroRemaster(int(changedResult[2])-ticketNum) +" "+changedResult [3] +" "+ changedResult [4]+" "+changedResult [5]
             print (bufferLine)
-            with open(fileName, 'a') as file:
-                file.write("CAN "+str(bufferLine)+"\n")
+            with open(os.path.join(__location__,"tempTransactionFile.txt"), 'a') as file:
+                file.write("CAN "+str(bufferLine))
         if (int(changedResult[2]) == int(ticketNum)):
             bufferLine= changedResult[1] +" "+ zeroRemaster(int(changedResult[2])) +" "+changedResult [3] +" "+ changedResult [4]+" "+changedResult [5]
             print (bufferLine)
-            with open(fileName, 'a') as file:
-                file.write("CAN "+str(bufferLine)+"\n")
+            with open(os.path.join(__location__,"tempTransactionFile.txt"), 'a') as file:
+                file.write("CAN "+str(bufferLine))
 
     if (loginType == "agent"):
         cancelledTickets += int(ticketNum)
