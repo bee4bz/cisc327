@@ -1,6 +1,6 @@
 import sys,os
 
-
+#RUN AS python3 main_backend.py validServiceFile.txt transactionSummaryFile.txt centralFile.txt
 
 #Function that adds the zeros on to a line item
 def zeroRemaster(incoming):
@@ -15,8 +15,6 @@ def zeroRemaster(incoming):
     else:
     	final=str(incoming)
     return final
-
-
 
 cancelledTickets = 0
 changedTickets = 0
