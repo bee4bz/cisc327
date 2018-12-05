@@ -66,11 +66,11 @@ def main():
 
             if (result[0] == "createservice" and loginType == "planner"):
                 print("Creating service...")
-                try:
-                    temp = createservice(result[1],result[2],result[3], transactionSummaryFile,validServiceListFile)
-                    tempServices.append(temp)
-                except Exception as err:
-                    print("Invalid Response")
+                #try:result[2],result[3],
+                temp = createservice(result[1],result[2],result[3], result[4],result[5],transactionSummaryFile,validServiceListFile)
+                tempServices.append(temp)
+                #except Exception as err:
+                    #print("Invalid Response")
     
 
             if (result[0] == "deleteservice" and loginType == "agent"):
@@ -103,7 +103,7 @@ def transferTrigger(validTransaction):
 
 
 
-def createservice(serviceNum,date,serviceName, validTransaction,validServices):
+def createservice(serviceNum,capacity,desService,serviceName,date,validTransaction,validServices):
     try:
         serviceNumber = int(serviceNum)
         #print (serviceNumber)
@@ -144,12 +144,31 @@ def createservice(serviceNum,date,serviceName, validTransaction,validServices):
         print("Illegal service name. Not allowed to end or start with a space")
         return 
 
+    #GET THE CAPACITY AND THE DESTINATION SERVICE NUMBER
+    #get = input("Please enter the capacity (# of tickets) and the destination service number seperated by a space \n")
+    
+    
+    if (len(desService) != 5 or desService == 0):
+        print("Illegal service number. Must be 5 numbers and not start with 0")
+        return 
+
 
     global __location__
     fileName= os.path.join(__location__,validTransaction)
     fileName2= os.path.join(__location__,validServices)
     bufferLine=[]
-    bufferLine= str(serviceNum) +" 0000 0000 "+serviceName+" "+date
+    bufferLine= str(serviceNum) +" "+zeroRemaster(int(capacity))+" "+desService+" "+serviceName+" "+date
+
+
+    #check if  servicenumber in service list file!!!
+    with open(fileName2,"r+") as summaryfile2:
+        for line in summaryfile2:
+            for part in line.split():
+                if str(serviceNum) in part: #If the serviceNUM is found in the file
+                    print("error: Service is already made")
+                    return
+
+
     ##print (bufferLine)
     with open(os.path.join(__location__,"tempTransactionFile.txt"), 'a') as file:
          file.write("CRE "+str(bufferLine)+"\n")
