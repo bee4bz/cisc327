@@ -1,11 +1,11 @@
 second session
 login planner
-createservice 44444 0001 0000 sessionOneInputTwo 20181012
+createservice 44444 0001 0000 sessionOneInputTwo3 20181012
 logout
 login agent
-sellticket 44444 0001 0000 sessionOneInputTwo 20181012
+sellticket 44444 0001 0000 sessionOneInputTwo3 20181012
 logout
 login agent
-cancelticket 44444 0001 0000 sessionOneInputTwo 20181012
+cancelticket 44444 0001 0000 sessionOneInputTwo3 20181012
 logout
 exit

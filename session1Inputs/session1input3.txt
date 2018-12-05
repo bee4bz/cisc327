@@ -1,5 +1,5 @@
 second session
 login planner
-createservice 44433 0006 0000 sessionOneInputThree 20181012 
+deleteservice 44444 0001 0000 sessionOneInputTwo3 20181012
 logout
 exit
