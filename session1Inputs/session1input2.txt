@@ -2,4 +2,10 @@ second session
 login planner
 createservice 44444 20181012 sessionOneInputTwo
 logout
+login agent
+sellticket 44444 1
+logout
+login agent
+cancelticket 44441
+logout
 exit
