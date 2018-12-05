@@ -5,4 +5,5 @@ logout
 login planner
 createservice 32222 20181010 sessionTwoInputOne
 logout
+deleteservice 22222
 exit

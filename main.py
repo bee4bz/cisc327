@@ -66,11 +66,11 @@ def main():
 
             if (result[0] == "createservice" and loginType == "planner"):
                 print("Creating service...")
-                #try:result[2],result[3],
-                temp = createservice(result[1],result[2],result[3], result[4],result[5],transactionSummaryFile,validServiceListFile)
-                tempServices.append(temp)
-                #except Exception as err:
-                    #print("Invalid Response")
+                try:
+                    temp = createservice(result[1],result[2],result[3], result[4],result[5],transactionSummaryFile,validServiceListFile)
+                    tempServices.append(temp)
+                except Exception as err:
+                    print("Invalid Response")
     
 
             if (result[0] == "deleteservice" and loginType == "agent"):
@@ -78,20 +78,29 @@ def main():
 
             if (result[0] == "deleteservice" and loginType == "planner"):
                 print("Deleting service...")
-                deleteservice(result[1],result[2], transactionSummaryFile,validServiceListFile)
+                try:
+                    deleteservice(result[1],result[2], transactionSummaryFile,validServiceListFile)
+                except Exception as err:
+                    print("Invalid Response")
 
             if (result[0] == "sellticket"):
                 print("Selling ticket...")
-                sellticket(result[1], result[2], transactionSummaryFile,validServiceListFile)
-
+                try:
+                    sellticket(result[1], result[2], transactionSummaryFile,validServiceListFile)
+                except Exception as err:
+                    print("Invalid Response")
             if (result[0] == "changeticket"):
                 print("Changing ticket...")
-                changeticket(result[1], result[2], result[3], transactionSummaryFile,validServiceListFile, loginType)
-
+                try:
+                    changeticket(result[1], result[2], result[3], transactionSummaryFile,validServiceListFile, loginType)
+                except Exception as err:
+                    print("Invalid Response")
             if (result[0] == "cancelticket"):
                 print("Cancelling ticket...")
-                cancelticket(result[1], result[2],transactionSummaryFile, loginType)
-            
+                try:
+                    cancelticket(result[1], result[2],transactionSummaryFile, loginType)
+                except Exception as err:
+                    print("Invalid Response")
 
 
 def transferTrigger(validTransaction):

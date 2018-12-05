@@ -1,8 +1,8 @@
 First session. first sets valid services
 login planner
-createservice 33333 20181009 sessionOneInputOne
+createservice 33333 0001 0000 sessionOneInputOne 20181009
 logout
 login planner
-createservice 22222 20181010 sessionOneInputOne
+createservice 22222 0001 0000 sessionOneInputOne 20181010
 logout
 exit
