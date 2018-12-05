@@ -62,8 +62,8 @@ for f in range(0,(len(transact))):
     #----------------------
     if (tempTrans[0]=='SEL'):
         #check if in summary file
-        if any(tempTrans[1] in s for s in summary):
-            print('In Summary File!')
+        if not any(tempTrans[1] in s for s in summary):
+            print('INVALID')
         #check in central services
         CServicesLine=[]
         #Keep track of lines that have been taken out. 
@@ -119,11 +119,11 @@ for f in range(0,(len(transact))):
         #check if service number is in summary file
         #print("----------------------")
         #print("----------------------")
-        if any(tempTrans[1] in s for s in summary):
-            print ('In Summary File!')
+        if not any(tempTrans[1] in s for s in summary):
+            print ('INVALID')
         #check if other service number is in summary file
-        if any(tempTrans[3] in s for s in summary):
-            print ('Also, In Summary File!')
+        if not any(tempTrans[3] in s for s in summary):
+            print ('INVALID')
 
 
         #check in central services
@@ -164,7 +164,7 @@ for f in range(0,(len(transact))):
     #----------------------
     if (tempTrans[0]=='CRE'):
         #check number of tickets
-        if (int(tempTrans[2]<1000) and int(tempTrans[2]>=0)):
+        if (int(tempTrans[2])<1000 and int(tempTrans[2])>=0):
             #Add to summary
             if ((('DEL '+tempTrans[1]) not in open(fileName2).read()) and (('SEL '+tempTrans[1]) not in open(fileName2).read()) and (('CAN '+tempTrans[1]) not in open(fileName2).read()) and (('CHG '+tempTrans[1]) not in open(fileName2).read())):								
                 #First check if the service already excists
