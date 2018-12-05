@@ -12,7 +12,7 @@
 
 #Front end stuff*********
 
-echo "Day script starts now." # To indicate all three run.
+echo "Day ${1} script starts now." # To indicate all three run.
 
 #run session front end. 
 
@@ -57,8 +57,8 @@ echo "EOS" >> transactionSummaryFile.txt
 
 #commented out right now becasue backend script won't work
 
-python3 main_backend.py
+python3 main_backend.py validServiceList.txt transactionSummaryFile.txt centralFile.txt
 
-echo "Day end"
+echo "Day ${1} end"
 
 
