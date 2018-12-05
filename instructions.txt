@@ -1,6 +1,8 @@
+FRONT END (main.py):
+python main.py validServiceList.txt transactionSummaryFile.txt
 
-
-
+BACK END (main_backend.py):
+python main_backend.py validServiceList.txt transactionSummaryFile.txt centralFile.txt
 
 ***** Running Scripts *****
 
