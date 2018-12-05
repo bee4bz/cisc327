@@ -64,6 +64,7 @@ for f in range(0,(len(transact))):
         #check if in summary file
         if not any(tempTrans[1] in s for s in summary):
             print('INVALID SELL. NOT IN TRANSAC SUMMARY FILE.')
+            sys.exit()
         #check in central services
         CServicesLine=[]
         #Keep track of lines that have been taken out. 
