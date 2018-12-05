@@ -169,7 +169,7 @@ for f in range(0,(len(transact))):
             if ((('DEL '+tempTrans[1]) not in open(fileName2).read()) and (('SEL '+tempTrans[1]) not in open(fileName2).read()) and (('CAN '+tempTrans[1]) not in open(fileName2).read()) and (('CHG '+tempTrans[1]) not in open(fileName2).read())):								
                 #First check if the service already excists
                 if tempTrans[1] in open(fileName).read():
-                    print("INVALID CREATE. SERVICE ALREADY EXISTS.")
+                    print("INVALID CREATE. SERVICE ALREADY EXISTS 1.")
                     sys.exit()
                 else:			
                     tempList=[]
@@ -183,7 +183,7 @@ for f in range(0,(len(transact))):
                     print("INVALID CREATE. TRANSACTION FORMATTED INCORRECTLY.")
                     sys.exit()							
             else:
-                print("INVALID CREATE. SERVICES ALREADY EXISTS.")
+                print("INVALID CREATE. SERVICES ALREADY EXISTS 2.")
                 sys.exit()
         else:
             print("INVALID CREATE. INVALID CAPACITY.")
